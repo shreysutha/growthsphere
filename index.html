@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,300;1,9..144,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
  
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -241,12 +242,55 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:6rem 5% 3
 .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.65s ease,transform 0.65s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
  
+/* MODAL & FORMS */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.modal-overlay.active{opacity:1;pointer-events:all;}
+.modal-content{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:3rem;width:100%;max-width:500px;position:relative;transform:translateY(20px);transition:transform 0.3s;max-height:90vh;overflow-y:auto;}
+.modal-overlay.active .modal-content{transform:translateY(0);}
+.modal-close{position:absolute;top:1.5rem;right:1.5rem;background:transparent;border:none;color:var(--muted);font-size:1.5rem;cursor:pointer;transition:color 0.2s;}
+.modal-close:hover{color:var(--white);}
+.form-group{margin-bottom:1.5rem;}
+.form-label{display:block;font-size:0.85rem;color:var(--muted);margin-bottom:0.5rem;font-weight:500;}
+.form-input,.form-select,.form-textarea{width:100%;padding:0.85rem 1.2rem;border-radius:4px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.02);color:var(--white);font-size:0.9rem;font-family:'DM Sans',sans-serif;outline:none;transition:border 0.2s;}
+.form-textarea{resize:vertical;min-height:100px;}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--o);background:rgba(255,69,0,0.04);}
+.form-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%236B7590' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;background-size:16px;}
+.form-select option{background:var(--bg2);color:var(--white);}
+.btn-submit{width:100%;background:var(--o);color:#fff;border:none;padding:1rem;border-radius:4px;font-size:0.9rem;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all 0.25s;letter-spacing:0.04em;}
+.btn-submit:hover{background:var(--o2);transform:translateY(-2px);}
+
+/* TOAST */
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--bg3);border:1px solid var(--border);border-left:4px solid #10B981;border-radius:4px;padding:1rem 1.5rem;color:var(--white);display:flex;align-items:center;gap:1rem;z-index:10000;transform:translateX(120%);transition:transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94);box-shadow:0 10px 30px rgba(0,0,0,0.5);}
+.toast.show{transform:translateX(0);}
+.toast i{color:#10B981;font-size:1.2rem;}
+
+/* CONTACT SECTION */
+.contact-section{padding:8rem 5%;background:var(--bg2);border-top:1px solid var(--border);}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+.contact-info p{color:var(--muted2);line-height:1.8;margin-bottom:2rem;font-weight:300;}
+
+/* IMAGE UTILS */
+.img-wrap{border-radius:8px;overflow:hidden;border:1px solid var(--border);position:relative;}
+.img-wrap img{width:100%;height:100%;object-fit:cover;display:block;}
+.img-overlay{position:absolute;inset:0;background:linear-gradient(to top, var(--bg2), transparent);opacity:0.6;}
+
+/* HERO LAYOUT OVERRIDES */
+.hero-inner{display:grid;grid-template-columns:55fr 45fr;gap:4rem;align-items:center;max-width:1250px;width:100%;}
+.hero-content{position:relative;z-index:2;}
+.hero-img{position:relative;z-index:1;animation:fadeUp 0.7s 0.3s ease both;box-shadow:0 0 40px rgba(255,69,0,0.4);border-radius:20px;}
+.hero-img::after{content:'';position:absolute;inset:0;background:rgba(255,69,0,0.35);border-radius:20px;mix-blend-mode:multiply;pointer-events:none;}
+.hero-img img{width:100%;height:auto;min-height:450px;object-fit:cover;object-position:center;border-radius:20px;display:block;}
+
 /* RESPONSIVE */
 @media(max-width:1100px){
   .svc-grid{grid-template-columns:repeat(2,1fr)}
   .ind-grid{grid-template-columns:repeat(3,1fr)}
 }
 @media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;gap:3rem;}
+  .hero-img{display:block;}
+  .hero-img img{height:400px;}
+  .contact-grid{grid-template-columns:1fr;}
   .about-layout,.content-layout{grid-template-columns:1fr}
   .why-grid{grid-template-columns:1fr 1fr}
   .t-grid{grid-template-columns:1fr}
@@ -279,7 +323,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:6rem 5% 3
     <li><a href="#industries">Industries</a></li>
     <li><a href="#testimonials">Clients</a></li>
   </ul>
-  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Book a Free Call</button>
+  <button class="nav-cta" onclick="toggleModal('contactModal')">Book a Free Call</button>
 </nav>
  
 <!-- HERO -->
@@ -291,22 +335,27 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:6rem 5% 3
     <div class="hero-noise"></div>
   </div>
   <div class="hero-inner">
-    <div class="hero-pill"><span class="hero-pill-dot"></span>#1 Digital Marketing Agency in India</div>
-    <h1 class="hero-headline">
-      WE DON'T<br>
-      <em class="line2">Market,</em>
-      <span class="line3">We Grow.</span>
-    </h1>
-    <p class="hero-sub">GrowthSphere helps businesses get more visibility, more leads, and more revenue — through strategies built around your goals, not generic templates.</p>
-    <div class="hero-actions">
-      <button class="btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Start Growing Today</button>
-      <button class="btn-line" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">📞 Book a Free Call</button>
+    <div class="hero-content">
+      <div class="hero-pill"><span class="hero-pill-dot"></span>#1 Digital Marketing Agency in India</div>
+      <h1 class="hero-headline">
+        WE DON'T<br>
+        <em class="line2">Market,</em>
+        <span class="line3">We Grow.</span>
+      </h1>
+      <p class="hero-sub">GrowthSphere helps businesses get more visibility, more leads, and more revenue — through strategies built around your goals, not generic templates.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="document.getElementById('contact-form-section').scrollIntoView({behavior:'smooth'})">Start Growing Today</button>
+        <button class="btn-line" onclick="toggleModal('contactModal')"><i class="fa-solid fa-phone" style="margin-right:8px;"></i>Book a Free Call</button>
+      </div>
+      <div class="hero-numbers">
+        <div class="hero-num"><strong>80<span>+</span></strong><small>Satisfied Clients</small></div>
+        <div class="hero-num"><strong>2K<span>+</span></strong><small>Campaigns Run</small></div>
+        <div class="hero-num"><strong>10<span>+</span></strong><small>Industries Served</small></div>
+        <div class="hero-num"><strong>3<span>+</span></strong><small>Countries</small></div>
+      </div>
     </div>
-    <div class="hero-numbers">
-      <div class="hero-num"><strong>80<span>+</span></strong><small>Satisfied Clients</small></div>
-      <div class="hero-num"><strong>2K<span>+</span></strong><small>Campaigns Run</small></div>
-      <div class="hero-num"><strong>10<span>+</span></strong><small>Industries Served</small></div>
-      <div class="hero-num"><strong>3<span>+</span></strong><small>Countries</small></div>
+    <div class="hero-img">
+      <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=900&q=80" alt="Creative Digital Marketing Team">
     </div>
   </div>
 </section>
@@ -345,6 +394,9 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:6rem 5% 3
       <p>We started GrowthSphere with one simple belief — businesses deserve marketing that works. Not vanity metrics. Not hollow promises. Real, measurable growth you can see in your revenue.</p>
       <p>We're a team of strategists, creatives, and performance marketers who live and breathe digital. From day one, we dig into your business — your audience, your competitors, your goals — and build a plan made for you, not copy-pasted from a template.</p>
       <p>Whether you're a startup looking to make your first mark online or an established brand ready to scale aggressively, we have the team, the tools, and the track record to get you there.</p>
+      <div class="img-wrap" style="margin-top:2.5rem;height:250px;">
+        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800" alt="GrowthSphere Team">
+      </div>
     </div>
     <div class="stats-grid reveal">
       <div class="stat-item"><div class="stat-n">80+</div><div class="stat-l">Happy Clients</div></div>
@@ -365,14 +417,14 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:6rem 5% 3
     <p class="sec-p">From visibility to conversions, we cover the full digital journey.</p>
   </div>
   <div class="svc-grid">
-    <div class="svc reveal"><div class="svc-num">01</div><span class="svc-emoji">✍️</span><h3>Content Marketing</h3><p>Content your audience actually wants to read, watch, and share — every piece built to attract, engage, and convert.</p></div>
-    <div class="svc reveal"><div class="svc-num">02</div><span class="svc-emoji">🎯</span><h3>PPC & Lead Generation</h3><p>Laser-targeted, data-backed paid campaigns on Google and Meta — optimized to give you the best return on every rupee.</p></div>
-    <div class="svc reveal"><div class="svc-num">03</div><span class="svc-emoji">💻</span><h3>Website Design</h3><p>Fast, clean, conversion-focused websites that work 24/7 turning visitors into actual customers.</p></div>
-    <div class="svc reveal"><div class="svc-num">04</div><span class="svc-emoji">📊</span><h3>Performance Marketing</h3><p>Every campaign tracked, tested, and improved continuously. We obsess over your numbers until they move the right way.</p></div>
-    <div class="svc reveal"><div class="svc-num">05</div><span class="svc-emoji">🛒</span><h3>E-commerce Marketing</h3><p>Product ads, retargeting, store optimization — more sales at lower cost per acquisition.</p></div>
-    <div class="svc reveal"><div class="svc-num">06</div><span class="svc-emoji">🎨</span><h3>Branding</h3><p>An identity — from visuals to voice — that makes people stop scrolling and remember you.</p></div>
-    <div class="svc reveal"><div class="svc-num">07</div><span class="svc-emoji">🔍</span><h3>SEO</h3><p>Long-term organic visibility that keeps delivering even when you're not running ads.</p></div>
-    <div class="svc reveal"><div class="svc-num">08</div><span class="svc-emoji">📩</span><h3>Email & WhatsApp</h3><p>Direct, personal, incredibly effective. Campaigns people actually open and act on.</p></div>
+    <div class="svc reveal"><div class="svc-num">01</div><span class="svc-emoji"><i class="fa-solid fa-pen-nib"></i></span><h3>Content Marketing</h3><p>Content your audience actually wants to read, watch, and share — every piece built to attract, engage, and convert.</p></div>
+    <div class="svc reveal"><div class="svc-num">02</div><span class="svc-emoji"><i class="fa-solid fa-bullseye"></i></span><h3>PPC & Lead Generation</h3><p>Laser-targeted, data-backed paid campaigns on Google and Meta — optimized to give you the best return on every rupee.</p></div>
+    <div class="svc reveal"><div class="svc-num">03</div><span class="svc-emoji"><i class="fa-solid fa-laptop-code"></i></span><h3>Website Design</h3><p>Fast, clean, conversion-focused websites that work 24/7 turning visitors into actual customers.</p></div>
+    <div class="svc reveal"><div class="svc-num">04</div><span class="svc-emoji"><i class="fa-solid fa-chart-line"></i></span><h3>Performance Marketing</h3><p>Every campaign tracked, tested, and improved continuously. We obsess over your numbers until they move the right way.</p></div>
+    <div class="svc reveal"><div class="svc-num">05</div><span class="svc-emoji"><i class="fa-solid fa-cart-shopping"></i></span><h3>E-commerce Marketing</h3><p>Product ads, retargeting, store optimization — more sales at lower cost per acquisition.</p></div>
+    <div class="svc reveal"><div class="svc-num">06</div><span class="svc-emoji"><i class="fa-solid fa-gem"></i></span><h3>Branding</h3><p>An identity — from visuals to voice — that makes people stop scrolling and remember you.</p></div>
+    <div class="svc reveal"><div class="svc-num">07</div><span class="svc-emoji"><i class="fa-solid fa-magnifying-glass-chart"></i></span><h3>SEO</h3><p>Long-term organic visibility that keeps delivering even when you're not running ads.</p></div>
+    <div class="svc reveal"><div class="svc-num">08</div><span class="svc-emoji"><i class="fa-solid fa-envelope-open-text"></i></span><h3>Email & WhatsApp</h3><p>Direct, personal, incredibly effective. Campaigns people actually open and act on.</p></div>
   </div>
 </section>
  
@@ -383,13 +435,13 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:6rem 5% 3
   <p class="sec-p">Most businesses know they need content — but have no idea what that really means. We build strategies tailored to your industry and goals.</p>
   <div class="content-layout">
     <div class="c-list reveal">
-      <div class="c-item"><div class="c-icon">📝</div><div><h4>Blog Articles & SEO Content</h4><p>In-depth, keyword-optimized articles that rank on Google and bring consistent organic traffic month after month.</p></div></div>
-      <div class="c-item"><div class="c-icon">📱</div><div><h4>Social Media Content</h4><p>Scroll-stopping posts, reels, carousels, and captions across Instagram, LinkedIn, Facebook, and more.</p></div></div>
-      <div class="c-item"><div class="c-icon">📧</div><div><h4>Email Newsletters</h4><p>Value-packed emails that keep your audience warm, build trust, and drive repeat purchases.</p></div></div>
-      <div class="c-item"><div class="c-icon">🎥</div><div><h4>Video Scripts & YouTube Content</h4><p>Scripts made for the camera — engaging, informative, built to keep viewers watching till the end.</p></div></div>
-      <div class="c-item"><div class="c-icon">📊</div><div><h4>Infographics & Visual Content</h4><p>Complex ideas made simple. Visual content easy to share and impossible to scroll past.</p></div></div>
-      <div class="c-item"><div class="c-icon">📄</div><div><h4>Case Studies & Whitepapers</h4><p>Professional documents that showcase your expertise and build credibility with high-value clients.</p></div></div>
-      <div class="c-item"><div class="c-icon">🖊️</div><div><h4>Landing Page & Ad Copy</h4><p>Every word written to move people toward action. Copy that sells.</p></div></div>
+      <div class="c-item"><div class="c-icon"><i class="fa-solid fa-file-lines"></i></div><div><h4>Blog Articles & SEO Content</h4><p>In-depth, keyword-optimized articles that rank on Google and bring consistent organic traffic month after month.</p></div></div>
+      <div class="c-item"><div class="c-icon"><i class="fa-solid fa-mobile-screen"></i></div><div><h4>Social Media Content</h4><p>Scroll-stopping posts, reels, carousels, and captions across Instagram, LinkedIn, Facebook, and more.</p></div></div>
+      <div class="c-item"><div class="c-icon"><i class="fa-solid fa-envelope"></i></div><div><h4>Email Newsletters</h4><p>Value-packed emails that keep your audience warm, build trust, and drive repeat purchases.</p></div></div>
+      <div class="c-item"><div class="c-icon"><i class="fa-solid fa-video"></i></div><div><h4>Video Scripts & YouTube Content</h4><p>Scripts made for the camera — engaging, informative, built to keep viewers watching till the end.</p></div></div>
+      <div class="c-item"><div class="c-icon"><i class="fa-solid fa-chart-pie"></i></div><div><h4>Infographics & Visual Content</h4><p>Complex ideas made simple. Visual content easy to share and impossible to scroll past.</p></div></div>
+      <div class="c-item"><div class="c-icon"><i class="fa-solid fa-file-contract"></i></div><div><h4>Case Studies & Whitepapers</h4><p>Professional documents that showcase your expertise and build credibility with high-value clients.</p></div></div>
+      <div class="c-item"><div class="c-icon"><i class="fa-solid fa-pen"></i></div><div><h4>Landing Page & Ad Copy</h4><p>Every word written to move people toward action. Copy that sells.</p></div></div>
     </div>
     <div class="insight-card reveal">
       <div class="insight-tag">Key Insight</div>
@@ -397,7 +449,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:6rem 5% 3
       <p>Every piece we create has a clear job — attract, educate, or convert. We never create content just to fill a calendar.</p>
       <p>A well-structured strategy is not about producing more. It's about producing the <em>right</em> content for the right audience at the right moment in their journey.</p>
       <p>When all three align — the message, the audience, and the timing — content becomes your most powerful sales tool, working 24/7 without spending a rupee on ads.</p>
-      <button class="btn-primary" style="margin-top:1.5rem;font-size:0.85rem;padding:0.85rem 1.8rem" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get a Content Strategy →</button>
+      <button class="btn-primary" style="margin-top:1.5rem;font-size:0.85rem;padding:0.85rem 1.8rem" onclick="toggleModal('contactModal')">Get a Content Strategy →</button>
     </div>
   </div>
 </section>
@@ -485,16 +537,16 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:6rem 5% 3
   <h2 class="sec-h2">Industries<br>That <em>Matter</em></h2>
   <p class="sec-p">Different industries. Different challenges. One growth-focused approach.</p>
   <div class="ind-grid">
-    <div class="ind reveal"><span class="ind-ico">🛒</span><h3>E-commerce</h3><p>Product ads, store optimisation, and scaling revenue online.</p></div>
-    <div class="ind reveal"><span class="ind-ico">🏥</span><h3>Healthcare</h3><p>Building trust, driving appointments, growing patient base.</p></div>
-    <div class="ind reveal"><span class="ind-ico">🏠</span><h3>Real Estate</h3><p>High-quality leads for residential and commercial projects.</p></div>
-    <div class="ind reveal"><span class="ind-ico">🎓</span><h3>Education</h3><p>Student acquisition and brand authority building.</p></div>
-    <div class="ind reveal"><span class="ind-ico">🍽️</span><h3>Food & Restaurant</h3><p>Local visibility, delivery platform marketing, social presence.</p></div>
-    <div class="ind reveal"><span class="ind-ico">💼</span><h3>B2B & SaaS</h3><p>LinkedIn marketing, content-led growth, demo funnels.</p></div>
-    <div class="ind reveal"><span class="ind-ico">👗</span><h3>Fashion</h3><p>Aesthetic branding, influencer strategy, social commerce.</p></div>
-    <div class="ind reveal"><span class="ind-ico">💪</span><h3>Fitness</h3><p>Community building, class bookings, and local SEO.</p></div>
-    <div class="ind reveal"><span class="ind-ico">🛋️</span><h3>Home Decor</h3><p>Visual-first content strategy and high-intent paid campaigns.</p></div>
-    <div class="ind reveal"><span class="ind-ico">🏭</span><h3>Manufacturing</h3><p>B2B lead generation and LinkedIn brand positioning.</p></div>
+    <div class="ind reveal"><span class="ind-ico"><i class="fa-solid fa-cart-shopping"></i></span><h3>E-commerce</h3><p>Product ads, store optimisation, and scaling revenue online.</p></div>
+    <div class="ind reveal"><span class="ind-ico"><i class="fa-solid fa-stethoscope"></i></span><h3>Healthcare</h3><p>Building trust, driving appointments, growing patient base.</p></div>
+    <div class="ind reveal"><span class="ind-ico"><i class="fa-solid fa-building"></i></span><h3>Real Estate</h3><p>High-quality leads for residential and commercial projects.</p></div>
+    <div class="ind reveal"><span class="ind-ico"><i class="fa-solid fa-graduation-cap"></i></span><h3>Education</h3><p>Student acquisition and brand authority building.</p></div>
+    <div class="ind reveal"><span class="ind-ico"><i class="fa-solid fa-utensils"></i></span><h3>Food & Restaurant</h3><p>Local visibility, delivery platform marketing, social presence.</p></div>
+    <div class="ind reveal"><span class="ind-ico"><i class="fa-solid fa-briefcase"></i></span><h3>B2B & SaaS</h3><p>LinkedIn marketing, content-led growth, demo funnels.</p></div>
+    <div class="ind reveal"><span class="ind-ico"><i class="fa-solid fa-shirt"></i></span><h3>Fashion</h3><p>Aesthetic branding, influencer strategy, social commerce.</p></div>
+    <div class="ind reveal"><span class="ind-ico"><i class="fa-solid fa-dumbbell"></i></span><h3>Fitness</h3><p>Community building, class bookings, and local SEO.</p></div>
+    <div class="ind reveal"><span class="ind-ico"><i class="fa-solid fa-couch"></i></span><h3>Home Decor</h3><p>Visual-first content strategy and high-intent paid campaigns.</p></div>
+    <div class="ind reveal"><span class="ind-ico"><i class="fa-solid fa-industry"></i></span><h3>Manufacturing</h3><p>B2B lead generation and LinkedIn brand positioning.</p></div>
   </div>
 </section>
  
@@ -532,15 +584,62 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:6rem 5% 3
 </section>
  
 <!-- CTA -->
-<section class="cta" id="contact">
+<section class="cta" id="newsletter-cta">
   <div class="cta-glow"></div>
   <h2 class="cta-big">Ready to<br><em>Grow</em> Your Brand?</h2>
   <p>Join 80+ businesses that chose GrowthSphere to get more visibility, more leads, and real measurable results.</p>
-  <div class="cta-row">
-    <input class="e-input" type="email" placeholder="Enter your email address"/>
-    <button class="btn-primary">Start Growing Today →</button>
-  </div>
+  <form class="cta-row" id="ctaForm" onsubmit="handleSubscribe(event, 'ctaEmail')">
+    <input class="e-input" type="email" id="ctaEmail" placeholder="Enter your email address" required/>
+    <button type="submit" class="btn-primary">Subscribe to Newsletter</button>
+  </form>
   <p class="cta-phone">Or call us directly — <strong>+91 9824571313</strong></p>
+</section>
+
+<!-- CONTACT SECTION -->
+<section class="contact-section" id="contact-form-section">
+  <div class="contact-grid">
+    <div class="contact-info reveal">
+      <div class="sec-eyebrow">Get In Touch</div>
+      <h2 class="sec-h2">Let's Talk<br><em>Strategy</em></h2>
+      <p>Whether you're looking for a complete digital overhaul or a targeted paid media campaign, we're here to help. Fill out the form, and one of our growth experts will be in touch within 24 hours.</p>
+      <div class="img-wrap" style="height:300px; margin-top:2rem;">
+        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=800" alt="Meeting">
+        <div class="img-overlay"></div>
+      </div>
+    </div>
+    <div class="contact-form-container reveal" style="background:var(--bg3); padding:3rem; border-radius:8px; border:1px solid var(--border);">
+      <form id="mainContactForm" onsubmit="handleContactSubmit(event, 'mainContactForm')">
+        <div class="form-group">
+          <label class="form-label">Name</label>
+          <input type="text" name="name" class="form-input" placeholder="Your full name" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" name="email" class="form-input" placeholder="you@company.com" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone</label>
+          <input type="tel" name="phone" class="form-input" placeholder="+91 XXXXX XXXXX" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Business Type</label>
+          <select name="businessType" class="form-select" required>
+            <option value="" disabled selected>Select your industry</option>
+            <option value="ecommerce">E-commerce</option>
+            <option value="saas">B2B & SaaS</option>
+            <option value="realestate">Real Estate</option>
+            <option value="healthcare">Healthcare</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea name="message" class="form-textarea" placeholder="Tell us about your goals..." required></textarea>
+        </div>
+        <button type="submit" class="btn-submit">Send Message</button>
+      </form>
+    </div>
+  </div>
 </section>
  
 <!-- FOOTER -->
@@ -589,10 +688,10 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:6rem 5% 3
       <h4>Newsletter</h4>
       <div class="nl-box">
         <p>Get weekly marketing tips that actually work — no spam, ever.</p>
-        <div class="nl-row">
-          <input class="nl-inp" type="email" placeholder="Your Email Address"/>
-          <button class="nl-sub">Subscribe →</button>
-        </div>
+        <form class="nl-row" onsubmit="handleSubscribe(event, 'footerEmail')">
+          <input class="nl-inp" type="email" id="footerEmail" placeholder="Your Email Address" required/>
+          <button type="submit" class="nl-sub">Subscribe →</button>
+        </form>
       </div>
     </div>
   </div>
@@ -606,7 +705,105 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:6rem 5% 3
   </div>
 </footer>
  
+<!-- MODAL -->
+<div class="modal-overlay" id="contactModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="toggleModal('contactModal')"><i class="fa-solid fa-xmark"></i></button>
+    <div class="sec-eyebrow">Book a Call</div>
+    <h3 style="font-family:'Bebas Neue', sans-serif; font-size:2.5rem; letter-spacing:1px; margin-bottom:1.5rem; color:var(--white);">Let's <em>Grow</em></h3>
+    <form id="modalContactForm" onsubmit="handleContactSubmit(event, 'modalContactForm')">
+      <div class="form-group">
+        <label class="form-label">Name</label>
+        <input type="text" name="name" class="form-input" placeholder="Your full name" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" name="email" class="form-input" placeholder="you@company.com" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone</label>
+        <input type="tel" name="phone" class="form-input" placeholder="+91 XXXXX XXXXX" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Business Type</label>
+        <select name="businessType" class="form-select" required>
+          <option value="" disabled selected>Select your industry</option>
+          <option value="ecommerce">E-commerce</option>
+          <option value="saas">B2B & SaaS</option>
+          <option value="realestate">Real Estate</option>
+          <option value="healthcare">Healthcare</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Message</label>
+        <textarea name="message" class="form-textarea" placeholder="Tell us about your goals..." required></textarea>
+      </div>
+      <button type="submit" class="btn-submit">Send Message</button>
+    </form>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toastMsg">
+  <i class="fa-solid fa-circle-check"></i>
+  <div style="font-size:0.9rem; font-weight:500;">Message sent successfully!</div>
+</div>
+
 <script>
+// UI State handlers
+function toggleModal(id) {
+  const modal = document.getElementById(id);
+  if(modal.classList.contains('active')) {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  } else {
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function showToast(message) {
+  const toast = document.getElementById('toastMsg');
+  toast.querySelector('div').innerText = message;
+  toast.classList.add('show');
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 3000);
+}
+
+function handleContactSubmit(e, formId) {
+  e.preventDefault();
+  const form = document.getElementById(formId);
+  const formData = new FormData(form);
+  
+  const name = formData.get('name') || '';
+  const email = formData.get('email') || '';
+  const phone = formData.get('phone') || '';
+  const businessType = formData.get('businessType') || '';
+  const message = formData.get('message') || '';
+  
+  const text = `New Contact Request:\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nBusiness Type: ${businessType}\nMessage: ${message}`;
+  const whatsappUrl = `https://wa.me/919824571313?text=${encodeURIComponent(text)}`;
+  
+  window.open(whatsappUrl, '_blank');
+  
+  showToast("Thank you! We'll contact you shortly.");
+  form.reset();
+  if(formId === 'modalContactForm') {
+    toggleModal('contactModal');
+  }
+}
+
+function handleSubscribe(e, inputId) {
+  e.preventDefault();
+  const input = document.getElementById(inputId);
+  if(input.value) {
+    showToast("Subscribed successfully!");
+    input.value = '';
+  }
+}
+
 // Custom cursor
 const cur=document.getElementById('cur'),ring=document.getElementById('cring');
 let mx=0,my=0,rx=0,ry=0;
