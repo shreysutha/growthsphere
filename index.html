@@ -1652,10 +1652,6 @@
 
     /* HERO LAYOUT OVERRIDES */
     .hero-inner {
-      display: grid;
-      grid-template-columns: minmax(0, 55fr) minmax(0, 45fr);
-      gap: 4rem;
-      align-items: stretch;
       max-width: 1250px;
       width: 100%;
       margin: 0 auto;
@@ -1664,37 +1660,6 @@
     .hero-content {
       position: relative;
       z-index: 2;
-      min-width: 0;
-    }
-
-    .hero-img {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      min-width: 0;
-      min-height: 0;
-      animation: fadeUp 0.7s 0.3s ease both;
-      box-shadow: 0 0 40px rgba(255, 69, 0, 0.4);
-      border-radius: 16px;
-    }
-
-    .hero-img::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(255, 69, 0, 0.35);
-      mix-blend-mode: multiply;
-      pointer-events: none;
-    }
-
-    .hero-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      display: block;
     }
 
     /* RESPONSIVE */
@@ -1709,19 +1674,6 @@
     }
 
     @media(max-width:900px) {
-      .hero-inner {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-      }
-
-      .hero-img {
-        display: block;
-      }
-
-      .hero-img img {
-        height: 400px;
-      }
-
       .contact-grid {
         grid-template-columns: 1fr;
       }
@@ -1847,11 +1799,6 @@
           <div class="hero-num"><strong>3<span>+</span></strong><small>Countries</small></div>
         </div>
       </div>
-      <div class="hero-img">
-        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=900&q=80"
-          alt="Modern Digital Marketing Team">
-      </div>
-    </div>
   </section>
 
   <!-- MARQUEE -->
