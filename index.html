@@ -1732,6 +1732,122 @@
         display: none
       }
     }
+
+    /* BLOG */
+    .blog {
+      padding: 8rem 5%;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 4rem;
+    }
+
+    .blog-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--o2);
+    }
+
+    .blog-img {
+      height: 200px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .blog-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .blog-card:hover .blog-img img {
+      transform: scale(1.05);
+    }
+
+    .blog-content {
+      padding: 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .blog-cat {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--o);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.8rem;
+    }
+
+    .blog-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.4;
+      margin-bottom: 1rem;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .blog-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      font-weight: 300;
+    }
+
+    .blog-more {
+      font-size: 0.85rem;
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: auto;
+      transition: color 0.2s;
+    }
+
+    .blog-more:hover {
+      color: var(--o);
+    }
+
+    .blog-more i {
+      font-size: 0.75rem;
+      transition: transform 0.2s;
+    }
+
+    .blog-more:hover i {
+      transform: translateX(4px);
+    }
+
+    @media(max-width: 1100px) {
+      .blog-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media(max-width: 600px) {
+      .blog-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
   <!-- Google Tag Manager -->
   <script>(function (w, d, s, l, i) {
@@ -1763,6 +1879,7 @@
       <li><a href="#why">Why Us</a></li>
       <li><a href="#industries">Industries</a></li>
       <li><a href="#testimonials">Clients</a></li>
+      <li><a href="#blog">Blogs</a></li>
     </ul>
     <button class="nav-cta" onclick="toggleModal('contactModal')">Book a Free Call</button>
   </nav>
@@ -2248,6 +2365,65 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section class="blog" id="blog">
+    <div class="sec-eyebrow">Our Blog</div>
+    <h2 class="sec-h2">Marketing Insights for<br><em>High-Growth</em> Brands</h2>
+    <div class="blog-grid">
+      <!-- Card 1 -->
+      <div class="blog-card reveal">
+        <div class="blog-img">
+          <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=800" alt="LinkedIn Marketing">
+        </div>
+        <div class="blog-content">
+          <div class="blog-cat">B2B Strategy</div>
+          <h3 class="blog-title">How B2B Companies in India Can Generate 3x More Leads Using LinkedIn</h3>
+          <p class="blog-desc">Discover the exact LinkedIn blueprint that Indian B2B firms are using to fill their pipelines with high-quality decision makers.</p>
+          <a href="#" class="blog-more">Read More <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="blog-card reveal">
+        <div class="blog-img">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800" alt="Digital Marketing Strategy">
+        </div>
+        <div class="blog-content">
+          <div class="blog-cat">Marketing Guide</div>
+          <h3 class="blog-title">The Complete B2B Digital Marketing Strategy Guide for Indian SMEs in 2026</h3>
+          <p class="blog-desc">A comprehensive look at the digital landscape for SMEs, focusing on sustainable growth and modern marketing tools.</p>
+          <a href="#" class="blog-more">Read More <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="blog-card reveal">
+        <div class="blog-img">
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800" alt="Google Ads">
+        </div>
+        <div class="blog-content">
+          <div class="blog-cat">Google Ads</div>
+          <h3 class="blog-title">Why Your Google Ads Are Not Converting - A B2B Marketer's Checklist</h3>
+          <p class="blog-desc">Stop wasting your budget. Check these 7 critical factors that might be killing your ad performance and ROI.</p>
+          <a href="#" class="blog-more">Read More <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div class="blog-card reveal">
+        <div class="blog-img">
+          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=800" alt="Email Marketing">
+        </div>
+        <div class="blog-content">
+          <div class="blog-cat">Email Marketing</div>
+          <h3 class="blog-title">From Zero to Pipeline: Building a B2B Email Marketing Strategy That Actually Works</h3>
+          <p class="blog-desc">Learn how to build an email engine that nurtures leads automatically and drives consistent sales calls.</p>
+          <a href="#" class="blog-more">Read More <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+    <div style="text-align: center; margin-top: 4rem;">
+      <button class="btn-line">View All Blogs</button>
     </div>
   </section>
 
